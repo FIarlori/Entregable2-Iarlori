@@ -38,18 +38,25 @@ function mostrarProductos(categoria, productos) {
 
 function solicitarCantidad(producto) {
     while (true) {
-        let cantidad = prompt(`Ingrese la cantidad de unidades de "${producto.nombre}" que desea comprar, RET para volver al menú anterior o ESC para salir`);
-        if (cantidad === null || cantidad.toUpperCase() === "ESC") {
-            return "ESC";
-        } else if (cantidad.toUpperCase() === "RET") {
-            return "RET";
-        } else if (!isNaN(cantidad) && parseInt(cantidad) > 0) {
-            return parseInt(cantidad);
-        } else {
-            alert("Por favor, ingrese una cantidad válida.");
+        const cantidad = prompt(`Ingrese la cantidad de unidades de "${producto.nombre}" que desea comprar, RET para volver al menú anterior o ESC para salir`);
+
+        switch (true) {
+            case cantidad === null: 
+            case cantidad.toUpperCase() === "ESC":
+                return "ESC";
+
+            case cantidad.toUpperCase() === "RET": 
+                return "RET";
+
+            case !isNaN(cantidad) && parseInt(cantidad) > 0: 
+                return parseInt(cantidad);
+
+            default: 
+                alert("Por favor, ingrese una cantidad válida.");
         }
     }
 }
+
 
 
 function verCarrito() {
@@ -69,15 +76,15 @@ function verCarrito() {
 }
 
 
+let continuar = true;  
+
 function eliminarProductoDelCarrito() {
     if (carrito.length === 0) {
         alert("El carrito está vacío.");
         return;
     }
 
-    let continuar = true;
-
-    while (continuar) {
+    while (true) {
         let mensaje = "Carrito de compras (precios con impuestos incluidos):\n\nIngrese el número del producto a eliminar, 'VAC' para vaciar el carrito, RET para volver al menú anterior, o ESC para salir\n\n";
         carrito.forEach((item, index) => {
             mensaje += `${index + 1}) ${item.cantidad} x ${item.producto.nombre} - Total: $${calcularTotal(item.producto.precio, item.cantidad).toFixed(2)}\n`;
@@ -85,69 +92,93 @@ function eliminarProductoDelCarrito() {
 
         const opcion = prompt(mensaje);
 
-        if (opcion === null || opcion.toUpperCase() === "ESC") {
-            alert("Gracias por usar nuestro sistema de compras.");
-            continuar = false;
-            break;
-        }
+        switch (true) {
+            case opcion === null: 
+            case opcion?.toUpperCase() === "ESC":
+                alert("Gracias por usar nuestro sistema de compras.");
+                continuar = false;
+                return;
 
-        if (opcion.toUpperCase() === "RET") {
-            return;
-        }
+            case opcion?.toUpperCase() === "RET": 
+                return;
 
-        if (opcion.toUpperCase() === "VAC") {
-            carrito = [];
-            localStorage.setItem("carrito", JSON.stringify(carrito));
-            alert("Se vació el carrito.");
-            return;
-        }
+            case opcion?.toUpperCase() === "VAC":
+                carrito = [];
+                localStorage.setItem("carrito", JSON.stringify(carrito));
+                alert("Se vació el carrito.");
+                return;
 
-        const indexProducto = parseInt(opcion) - 1;
+            default: 
+                const indexProducto = parseInt(opcion) - 1;
 
-        if (!isNaN(indexProducto) && indexProducto >= 0 && indexProducto < carrito.length) {
-            const item = carrito[indexProducto];
+                switch (true) {
+                    case isNaN(indexProducto) || indexProducto < 0 || indexProducto >= carrito.length:
+                        alert("La opción ingresada no es válida. Por favor intente nuevamente.");
+                        break;
 
-            while (true) {
-                const cantidadAEliminar = prompt(`El producto seleccionado es "${item.producto.nombre}".\nActualmente tienes ${item.cantidad} unidad(es).\nIngrese la cantidad de unidades que desea eliminar, RET para volver al menú anterior o ESC para salir.`);
-                if (cantidadAEliminar === null || cantidadAEliminar.toUpperCase() === "ESC") {
-                    alert("Gracias por usar nuestro sistema de compras.");
-                    continuar = false;
-                    break;
-                } else if (cantidadAEliminar.toUpperCase() === "RET") {
-                    break;
-                } else if (!isNaN(cantidadAEliminar) && parseInt(cantidadAEliminar) > 0) {
-                    const cantidad = parseInt(cantidadAEliminar);
-                    if (cantidad >= item.cantidad) {
-                        carrito.splice(indexProducto, 1);
-                        alert(`${item.producto.nombre}" se eliminó del carrito.`);
-                    } else {
-                        item.cantidad -= cantidad;
-                        alert(`Se eliminaron ${cantidad} unidad(es) de "${item.producto.nombre}". Quedan ${item.cantidad} unidad(es).`);
-                    }
-                    localStorage.setItem("carrito", JSON.stringify(carrito));
-                    break;
-                } else {
-                    alert("Por favor, ingrese una cantidad válida.");
+                    default:
+                        const item = carrito[indexProducto];
+
+                        while (true) {
+                            const cantidadAEliminar = prompt(`El producto seleccionado es "${item.producto.nombre}".\nActualmente tienes ${item.cantidad} unidad(es).\nIngrese la cantidad de unidades que desea eliminar, RET para volver al menú anterior o ESC para salir.`);
+
+                            switch (true) {
+                                case cantidadAEliminar === null: 
+                                case cantidadAEliminar?.toUpperCase() === "ESC":
+                                    alert("Gracias por usar nuestro sistema de compras.");
+                                    continuar = false;
+                                    return;
+
+                                case cantidadAEliminar?.toUpperCase() === "RET": 
+                                    break;
+
+                                case !isNaN(cantidadAEliminar) && parseInt(cantidadAEliminar) > 0: 
+                                    const cantidad = parseInt(cantidadAEliminar);
+                                    if (cantidad >= item.cantidad) {
+                                        carrito.splice(indexProducto, 1);
+                                        alert(`${item.producto.nombre} se eliminó del carrito.`);
+                                    } else {
+                                        item.cantidad -= cantidad;
+                                        alert(`Se eliminaron ${cantidad} unidad(es) de "${item.producto.nombre}". Quedan ${item.cantidad} unidad(es).`);
+                                    }
+                                    localStorage.setItem("carrito", JSON.stringify(carrito));
+                                    return;
+
+                                default:
+                                    alert("Por favor, ingrese una cantidad válida.");
+                            }
+                            if (cantidadAEliminar?.toUpperCase() === "RET") break;
+
+                        }
                 }
-            }
-        } else {
-            alert("La opción ingresada no es válida. Por favor intente nuevamente.");
         }
     }
 }
 
 
+
+
 function seleccionarCategoria() {
     while (true) {
-        const categoria = prompt("Seleccione una categoría, ingrese RET para volver al menú anterior o ESC para salir:\n\n1) Smartphones\n2) Laptops\n3) Accesorios\n4) Tablets");
-        if (categoria === null || categoria.toUpperCase() === "ESC") return null;
-        if (categoria.toUpperCase() === "RET") return "RET";
+        const categoria = prompt(
+            "Seleccione una categoría, ingrese RET para volver al menú anterior o ESC para salir:\n\n1) Smartphones\n2) Laptops\n3) Accesorios\n4) Tablets"
+        );
 
-        switch (categoria) {
-            case "1": return { nombre: "Smartphones", productos: categorias.smartphones };
-            case "2": return { nombre: "Laptops", productos: categorias.laptops };
-            case "3": return { nombre: "Accesorios", productos: categorias.accesorios };
-            case "4": return { nombre: "Tablets", productos: categorias.tablets };
+        if (categoria === null || categoria.toUpperCase() === "ESC") {
+           return "ESC";
+        }
+
+        switch (categoria.toUpperCase()) {
+            case "RET":
+                return "RET"; 
+            case "1":
+                return { nombre: "Smartphones", productos: categorias.smartphones };
+            case "2":
+                return { nombre: "Laptops", productos: categorias.laptops };
+            case "3":
+                return { nombre: "Accesorios", productos: categorias.accesorios };
+            case "4":
+                return { nombre: "Tablets", productos: categorias.tablets };
             default:
                 alert("La opción ingresada no es válida. Por favor intente nuevamente.");
         }
@@ -175,77 +206,102 @@ function agregarAlCarrito(nombreCategoria, productoSeleccionado, cantidad) {
 
 
 function menuSeleccion() {
-    let continuar = true;
-
     while (continuar) {
-        const opcionPrincipal = prompt("Bienvenido a TecStore\nSeleccione una opción o ingrese ESC para salir:\n\n1) Comprar\n2) Ver carrito de compras\n3) Eliminar productos del carrito");
-        if (opcionPrincipal === null || opcionPrincipal.toUpperCase() === "ESC") {
-            alert("Gracias por usar nuestro sistema de compras.");
-            continuar = false; 
-            break;
-        }
+        const opcionPrincipal = prompt(
+            "Bienvenido a TecStore\nSeleccione una opción o ingrese ESC para salir:\n\n1) Comprar\n2) Ver carrito de compras\n3) Eliminar productos del carrito"
+        );
 
-        switch (opcionPrincipal) {
-            case "1":
-                while (true) {
+        switch (true) {
+            case opcionPrincipal === null:
+            case opcionPrincipal?.toUpperCase() === "ESC":
+                alert("Gracias por usar nuestro sistema de compras.");
+                continuar = false;
+                break;
+
+            case opcionPrincipal === "1": 
+                let salirDeCompra = false;
+
+                while (!salirDeCompra) {
                     const seleccion = seleccionarCategoria();
-                    if (!seleccion) {
-                        alert("Gracias por usar nuestro sistema de compras.");
-                        continuar = false;
-                        break;
-                    } else if (seleccion === "RET") {
-                        break; 
-                    }
 
-                    const { nombre, productos } = seleccion;
-                    let volver = false;
-
-                    while (!volver) {
-                        const mensaje = mostrarProductos(nombre, productos);
-                        const idProductoSeleccionado = prompt(mensaje);
-
-                        if (idProductoSeleccionado === null || idProductoSeleccionado.toUpperCase() === "ESC") {
-                            alert("Gracias por usar nuestro sistema de compras.");
-                            continuar = false; 
-                            volver = true;
-                            break;
-                        } else if (idProductoSeleccionado.toUpperCase() === "RET") {
-                            volver = true; 
-                            break;
-                        }
-
-                        const productoSeleccionado = productos.find(p => p.id === parseInt(idProductoSeleccionado));
-                        if (!productoSeleccionado) {
-                            alert("La opción ingresada no es válida. Por favor intente nuevamente.");
-                            continue;
-                        }
-
-                        const cantidad = solicitarCantidad(productoSeleccionado);
-                        if (cantidad === "RET") {
-                            continue; 
-                        } else if (cantidad === "ESC") {
+                    switch (true) {
+                        case seleccion === "ESC":
                             alert("Gracias por usar nuestro sistema de compras.");
                             continuar = false;
-                            volver = true;
+                            salirDeCompra = true; 
                             break;
+
+                        case seleccion === "RET": 
+                            salirDeCompra = true; 
+                            break;
+
+                        default: {
+                            const { nombre, productos } = seleccion;
+                            let volver = false;
+
+                            while (!volver) {
+                                const mensaje = mostrarProductos(nombre, productos);
+                                const idProductoSeleccionado = prompt(mensaje);
+
+                                switch (true) {
+                                    case idProductoSeleccionado === null:
+                                    case idProductoSeleccionado?.toUpperCase() === "ESC":
+                                        alert("Gracias por usar nuestro sistema de compras.");
+                                        continuar = false;
+                                        volver = true;
+                                        salirDeCompra = true; 
+                                        break;
+
+                                    case idProductoSeleccionado?.toUpperCase() === "RET": 
+                                        volver = true; 
+                                        break;
+
+                                    default: {
+                                        const productoSeleccionado = productos.find(
+                                            (p) => p.id === parseInt(idProductoSeleccionado)
+                                        );
+
+                                        switch (true) {
+                                            case !productoSeleccionado: 
+                                                alert("La opción ingresada no es válida. Por favor intente nuevamente.");
+                                                break;
+
+                                            default: {
+                                                const cantidad = solicitarCantidad(productoSeleccionado);
+
+                                                switch (cantidad) {
+                                                    case "RET":
+                                                        break;
+
+                                                    case "ESC": 
+                                                        alert("Gracias por usar nuestro sistema de compras.");
+                                                        continuar = false;
+                                                        volver = true;
+                                                        salirDeCompra = true;
+                                                        break;
+
+                                                    default: 
+                                                        agregarAlCarrito(nombre, productoSeleccionado, cantidad);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         }
-
-                        agregarAlCarrito(nombre, productoSeleccionado, cantidad);
                     }
-
-                    if (!continuar) break; 
                 }
                 break;
 
-            case "2":
+            case opcionPrincipal === "2": 
                 verCarrito();
                 break;
 
-            case "3":
+            case opcionPrincipal === "3": 
                 eliminarProductoDelCarrito();
                 break;
 
-            default:
+            default: 
                 alert("La opción ingresada no es válida. Por favor intente nuevamente.");
         }
     }
@@ -257,10 +313,6 @@ function menuSeleccion() {
     }
 }
 
-
-window.onbeforeunload = function () {
-    localStorage.setItem("sesionActiva", sesionActiva);
-};
 
 
 menuSeleccion();
