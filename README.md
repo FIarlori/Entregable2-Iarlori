@@ -1,61 +1,50 @@
-# TecStore - Sistema de Compras en Línea
+# TecStore - E-commerce
 
-TecStore es un sistema de compras en línea para productos electrónicos, donde los usuarios pueden explorar categorías de productos, agregar artículos a su carrito de compras, y ver el total de su compra con impuestos incluidos.
+TecStore es una aplicación de comercio electrónico que permite a los usuarios navegar, buscar, filtrar productos según categoría y precio y comprar productos. La aplicación incluye funcionalidades para agregar productos al carrito, ajustar cantidades y eliminar productos del carrito. 
 
 ## Funcionalidades
 
-### 1. **Selección de Productos**
-El sistema permite a los usuarios elegir productos de diferentes categorías:
+### Página Principal (index.html)
 
-- **Smartphones**: iPhone 14, Samsung Galaxy S22, entre otros.
-- **Laptops**: MacBook Air M1, Dell XPS 13, y más.
-- **Accesorios**: Auriculares Bose, Cargador Rápido, y otros accesorios disponibles.
-- **Tablets**: iPad Pro, Samsung Galaxy Tab, entre otros.
+- **Navegación por Categorías**: Los usuarios pueden navegar por diferentes categorías de productos, como Smartphones, Laptops, Accesorios y Tablets.
+- **Búsqueda de Productos**: Los usuarios pueden buscar productos utilizando la barra de búsqueda.
+- **Agregar al Carrito**: Los usuarios pueden agregar productos al carrito seleccionando la cantidad deseada y haciendo clic en el botón "Agregar al carrito".
+- **Ordenar por Precio**: Los usuarios pueden ordenar los productos de menor a mayor precio o de mayor a menor precio. Los filtros se pueden seleccionar y deseleccionar.
 
-### 2. **Proceso de Compra**
-Los usuarios pueden realizar una compra de la siguiente manera:
-1. **Seleccionar una categoría de producto**: Los productos están organizados en categorías como Smartphones, Laptops, Accesorios y Tablets.
-2. **Elegir el producto**: Una vez seleccionada una categoría, los usuarios pueden elegir un producto y ver su precio.
-3. **Ingresar la cantidad**: El sistema solicita la cantidad de unidades que se desean comprar.
-4. **Agregar al carrito**: El producto seleccionado se agrega al carrito de compras con la cantidad deseada.
 
-### 3. **Carrito de Compras**
-El sistema permite a los usuarios ver el carrito con los productos seleccionados y el total calculado, incluyendo impuestos (21%). Si el carrito está vacío, el sistema lo notificará.
+### Página del Carrito (carrito.html)
 
-- Los usuarios pueden ver el nombre del producto, la cantidad y el total con impuestos incluidos.
-- El total general de la compra se calcula automáticamente.
+- **Visualización del Carrito**: Los usuarios pueden ver los productos agregados al carrito con el mismo formato y estilo que en la página principal.
+- **Ajustar Cantidades**: Los usuarios pueden ajustar la cantidad de productos en el carrito utilizando los botones "+" y "-".
+- **Eliminar Productos**: Los usuarios pueden eliminar productos del carrito utilizando el botón "Eliminar".
+- **Vaciar Carrito**: Los usuarios pueden vaciar todo el carrito con un solo clic.
+- **Total del Carrito**: Se muestra el total del carrito, calculado en función de los productos y sus cantidades.
 
-### 4. **Eliminar Productos del Carrito**
-Los usuarios pueden eliminar productos del carrito de compras. Pueden:
-- Eliminar una cantidad específica de un producto.
-- Eliminar completamente un producto.
-- Vaciar todo el carrito.
+## Estructura del Proyecto
 
-### 5. **Volver al Menú Principal**
-En cualquier momento, los usuarios pueden volver al menú anterior mediante el comando "RET". Esto les permite regresar a la selección de categorías o elegir entre ver el carrito o continuar comprando.
+- **index.html**: Página principal de la tienda.
+- **carrito.html**: Página del carrito de compras.
+- **styles/style.css**: Archivo de estilos CSS para la aplicación.
+- **js/app.js**: Archivo JavaScript principal para la página principal.
+- **js/modules/carrito.js**: Archivo JavaScript para la funcionalidad del carrito de compras.
 
-### 6. **Navegación**
-El sistema tiene una navegación sencilla con las siguientes opciones:
-- **Comprar**: Iniciar el proceso de compra, seleccionar una categoría y agregar productos al carrito.
-- **Ver carrito de compras**: Consultar los productos en el carrito y ver el total de la compra.
-- **Eliminar productos del carrito**: Eliminar productos seleccionados del carrito.
+## Instalación
 
-### 7. **Salir**
-Los usuarios pueden salir del sistema en cualquier momento usando el comando "ESC", lo que finalizará el proceso de compra y mostrará un mensaje de despedida.
-
----
+1. Clona el repositorio en tu máquina local.
+2. Abre el archivo `index.html` en tu navegador para acceder a la página principal de la tienda.
+3. Navega a la página del carrito haciendo clic en el botón "Ver Carrito".
 
 ## Uso
 
-1. **Iniciar el sistema**:
-   Ejecuta el siguiente código en tu navegador para comenzar a usar el sistema de compras.
+1. Navega por las categorías de productos y utiliza la barra de búsqueda para encontrar productos específicos.
+2. Ajusta la cantidad de productos que deseas agregar al carrito y haz clic en "Agregar al carrito".
+3. Ve al carrito de compras para ajustar las cantidades o eliminar productos.
+4. Revisa el total del carrito antes de proceder con la compra.
 
-2. **Interacción**:
-   Usa los comandos `RET` para volver al menú anterior y `ESC` para salir del sistema en cualquier momento.
+## Tecnologías Utilizadas
 
----
+- HTML
+- CSS
+- JavaScript
 
-## Requisitos
-
-Este sistema de e-commerce se ejecuta directamente en el navegador y no requiere instalación adicional.
 
