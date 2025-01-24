@@ -9,14 +9,14 @@ class Producto {
 }
 
 const productos = [
-    new Producto(1, "iPhone 14", 1200, "/public/images/iphone-14.png", "smartphones"),
-    new Producto(2, "Samsung Galaxy S22", 1000, "/public/images/s22.png", "smartphones"),
-    new Producto(3, "MacBook Air M1", 1500, "/public/images/macbook-m1.png", "laptops"),
-    new Producto(4, "Dell XPS 13", 1400, "/public/images/dell-xps-13.png", "laptops"),
-    new Producto(5, "Auriculares Bose", 300, "/public/images/bose.png", "accesorios"),
-    new Producto(6, "Cargador Rápido", 50, "/public/images/cargador.png", "accesorios"),
-    new Producto(7, "iPad Pro", 1100, "/public/images/ipad-pro.png", "tablets"),
-    new Producto(8, "Samsung Galaxy Tab", 900, "/public/images/galaxy-tab.png", "tablets"),
+    new Producto(1, "iPhone 14", 1200, "iphone-14.png", "smartphones"),
+    new Producto(2, "Samsung Galaxy S22", 1000, "s22.png", "smartphones"),
+    new Producto(3, "MacBook Air M1", 1500, "macbook-m1.png", "laptops"),
+    new Producto(4, "Dell XPS 13", 1400, "dell-xps-13.png", "laptops"),
+    new Producto(5, "Auriculares Bose", 300, "bose.png", "accesorios"),
+    new Producto(6, "Cargador Rápido", 50, "cargador.png", "accesorios"),
+    new Producto(7, "iPad Pro", 1100, "ipad-pro.png", "tablets"),
+    new Producto(8, "Samsung Galaxy Tab", 900, "galaxy-tab.png", "tablets"),
 ];
 
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
@@ -37,7 +37,7 @@ function mostrarProductos(productos) {
         productoDiv.classList.add('producto');
         productoDiv.innerHTML = `
             <div class="producto-imagen">
-                <img src="${producto.imagen}" alt="${producto.nombre}">
+                <img src="./public/images/${producto.imagen}" alt="${producto.nombre}">
             </div>
             <div class="producto-detalles">
                 <p class="producto-nombre">${producto.nombre} - $${producto.precio}</p>

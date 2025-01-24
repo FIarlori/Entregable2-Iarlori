@@ -53,7 +53,7 @@ class Carrito {
             productoDiv.classList.add('producto');
             productoDiv.innerHTML = `
                 <div class="producto-imagen">
-                    <img src="${item.producto.imagen}" alt="${item.producto.nombre}">
+                    <img src="../public/images/${item.producto.imagen}" alt="${item.producto.nombre}">
                 </div>
                 <div class="producto-detalles">
                     <p class="producto-nombre">${item.producto.nombre} - $${item.producto.precio}</p>
